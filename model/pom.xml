@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>smarthome</artifactId>
+        <groupId>lu.cecchinel</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>smarthome.model</artifactId>
+
+    <name>smarthome.model</name>
+    <!-- FIXME change it to the project's website -->
+    <url>http://www.example.com</url>
+
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.datathings</groupId>
+                <artifactId>greycat-mavenplugin</artifactId>
+                <version>${greycat.version}</version>
+                <executions>
+                    <execution>
+                        <id>GenModel</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <input>src/main/gcm/model.gcm</input>
+                            <packageName>model</packageName>
+                            <generateJS>true</generateJS>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,20 @@
+const description:String = "SmartHome"
+const POWER: String = "power"
+const TEMPERATURE: String = "temperature"
+const HUMIDITY: String = "humidity"
+
+class Room{
+    att name: String
+    rel sensors: Sensor
+}
+
+class Sensor{
+    att name:String
+    att measure:String
+    att value:Double
+    att ip:String
+    att updatePeriod:Long
+}
+
+index rooms : Room using name
+index sensors: Sensor using name
