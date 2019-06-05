@@ -5,6 +5,7 @@ import grafana.GrafanaPlugin;
 import greycat.Action;
 import greycat.Constants;
 import greycat.TaskContext;
+import greycat.Type;
 import greycat.internal.task.TaskHelper;
 import greycat.plugin.SchedulerAffinity;
 import greycat.struct.Buffer;
@@ -68,6 +69,8 @@ public class LoadSensorsAction implements Action {
                                         .setAttribute(Sensor.NAME.name, Sensor.NAME.type, "{{name}}")
                                         .setAttribute(Sensor.MANUFACTURER.name, Sensor.MANUFACTURER.type, "{{manufacturer}}")
                                         .setAttribute(Sensor.IP.name, Sensor.IP.type, "{{ip}}")
+                                        .setAttribute("id", Type.STRING, "{{name}}")
+                                        .setAttribute(Sensor.VALUE.name, Sensor.VALUE.type, "0.0")
                                         .setAsVar("newSensor")
                                         .updateIndex(sensors.META.name)
                                         .readVar("newSensor")
@@ -77,6 +80,9 @@ public class LoadSensorsAction implements Action {
                                         .setAttribute(Sensor.NAME.name, Sensor.NAME.type, "{{name}}")
                                         .setAttribute(Sensor.MANUFACTURER.name, Sensor.MANUFACTURER.type, "{{manufacturer}}")
                                         .setAttribute(Sensor.IP.name, Sensor.IP.type, "{{ip}}")
+                                        .setAttribute("id", Type.STRING, "{{name}}")
+                                        .setAttribute(Sensor.VALUE.name, Sensor.VALUE.type, "0.0")
+                                        .updateIndex(GrafanaPlugin.GRAFANA_INDEX)
 
                         ).save()
 
