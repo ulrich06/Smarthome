@@ -1,3 +1,10 @@
-0:name,1:ip
-tv,192.168.178.32
-washing-machine,192.168.178.35
+freezer,192.168.178.55,tplink
+wm,192.168.178.36,tplink
+temp-bedroom,0.0.0.0,mqtt
+temp-outside,0.0.0.0,mqtt
+temp-keller,0.0.0.0,mqtt
+hum-keller,0.0.0.0,mqtt
+hum-living,0.0.0.0,mqtt
+temp-living,0.0.0.0,mqtt
+tv,192.168.178.32,meross
+lamp,192.168.178.35,meross

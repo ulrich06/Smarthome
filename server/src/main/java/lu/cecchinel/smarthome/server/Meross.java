@@ -54,7 +54,7 @@ public class Meross implements SmartPlug{
                 line = in.readLine();
                 stringBuilder.append(line).append("\n");
             } while (!line.contains("current year :") && (now - begin) < 5 * 1000 * 1000);;
-            System.out.println(stringBuilder.toString());
+            //System.out.println(stringBuilder.toString());
             out.close();
             in.close();
             pingSocket.close();
@@ -66,11 +66,11 @@ public class Meross implements SmartPlug{
         return null;
     }
 
-    public double getInstantPower() {
+    public double getInstantValue() {
         try {
             return (double) getValueFromRawData(Parameter.INSTANT_POWER, sync());
         } catch (RuntimeException ignored){ }
-        return -1.0;
+        return Double.MIN_VALUE;
 
     }
 }

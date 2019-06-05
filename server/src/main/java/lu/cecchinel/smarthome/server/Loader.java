@@ -28,12 +28,14 @@ public class Loader {
             for (int i = 0; i < csvValues.size(); i++) {
                 String name = csvValues.get(i)[0].trim();
                 String ip = csvValues.get(i)[1].trim();
+                String manufacturer = csvValues.get(i)[2].trim();
                 sensors.find(graph, 0, greycat.Constants.BEGINNING_OF_TIME, name, find -> {
                     if (find.length == 0){
                         Sensor sensor = Sensor.create(0, greycat.Constants.BEGINNING_OF_TIME, graph);
                         sensor.setValue(0.0);
                         sensor.setName(name);
                         sensor.setIp(ip);
+                        sensor.setManufacturer(manufacturer);
                         sensor.set("id", Type.STRING, name);
                         sensors.update(sensor, updated -> {
                             System.out.println("Indexed: " + updated);

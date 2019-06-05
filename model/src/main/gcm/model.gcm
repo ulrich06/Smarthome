@@ -14,6 +14,7 @@ class Sensor{
     att value:Double
     att ip:String
     att updatePeriod:Long
+    att manufacturer:String
 }
 
 index rooms : Room using name

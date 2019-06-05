@@ -10,8 +10,6 @@
 
 
   <name>smarthome</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
 
 
     <properties>
@@ -22,7 +20,6 @@
     <modules>
         <module>model</module>
         <module>server</module>
-        <module>web</module>
     </modules>
 
     <dependencies>
