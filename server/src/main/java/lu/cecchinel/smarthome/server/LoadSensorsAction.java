@@ -63,27 +63,13 @@ public class LoadSensorsAction implements Action {
                         .readIndex(sensors.META.name, "{{name}}")
                         .ifThenElse(cond -> cond.result().size() == 0,
                                 newTask()
-                                        .travelInTime(Constants.BEGINNING_OF_TIME_STR)
-                                        .log("New sensor: {{name}}")
-                                        .createTypedNode(Sensor.META.name)
-                                        .setAttribute(Sensor.NAME.name, Sensor.NAME.type, "{{name}}")
-                                        .setAttribute(Sensor.MANUFACTURER.name, Sensor.MANUFACTURER.type, "{{manufacturer}}")
-                                        .setAttribute(Sensor.IP.name, Sensor.IP.type, "{{ip}}")
-                                        .setAttribute("id", Type.STRING, "{{name}}")
-                                        .setAttribute(Sensor.VALUE.name, Sensor.VALUE.type, "0.0")
-                                        .setAsVar("newSensor")
-                                        .updateIndex(sensors.META.name)
-                                        .readVar("newSensor")
-                                        .updateIndex(GrafanaPlugin.GRAFANA_INDEX),
+                                        .action(CreateSensorAction.NAME, "{{name}}", "{{manufacturer}}", "{{ip}}"),
                                 newTask()
                                         .travelInTime(Constants.BEGINNING_OF_TIME_STR)
-                                        .setAttribute(Sensor.NAME.name, Sensor.NAME.type, "{{name}}")
                                         .setAttribute(Sensor.MANUFACTURER.name, Sensor.MANUFACTURER.type, "{{manufacturer}}")
                                         .setAttribute(Sensor.IP.name, Sensor.IP.type, "{{ip}}")
-                                        .setAttribute("id", Type.STRING, "{{name}}")
                                         .setAttribute(Sensor.VALUE.name, Sensor.VALUE.type, "0.0")
                                         .updateIndex(GrafanaPlugin.GRAFANA_INDEX)
-
                         ).save()
 
         ).executeFrom(taskContext, taskContext.newResult().add(this.path), SchedulerAffinity.ANY_LOCAL_THREAD, cb -> {

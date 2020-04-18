@@ -70,7 +70,7 @@ public class Meross implements SmartPlug{
         try {
             return (double) getValueFromRawData(Parameter.INSTANT_POWER, sync());
         } catch (RuntimeException ignored){ }
-        return Double.MIN_VALUE;
+        return -Double.MAX_VALUE;
 
     }
 }

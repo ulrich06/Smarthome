@@ -30,11 +30,12 @@ public class Run {
                 .newBuilder()
                 .withPlugin(new ModelPlugin())
                 .withPlugin(new GrafanaPlugin())
-                .withPlugin(new MQTTPlugin("192.168.178.200", 1883, new String[]{"temperature", "humidity"}, "mqtt", new MQTTHandler("sensors")))
+                .withPlugin(new MQTTPlugin("192.168.178.200", 1883, new String[]{"temperature", "humidity", "tele/+/SENSOR"}, "mqtt", new MQTTHandler("sensors")))
                 .withStorage(new LevelDBStorage(AppProps.getInstance().getProperty(AppProps.DB_PATH)).useNative(false))
                 .withScheduler(new ExecutorScheduler())
                 .build();
 
+        graph.actionRegistry().getOrCreateDeclaration(CreateSensorAction.NAME).setParams(Type.STRING, Type.STRING, Type.STRING).setFactory(params -> new CreateSensorAction((String) params[0], (String) params[1], (String) params[2]));
         graph.actionRegistry().getOrCreateDeclaration(LoadSensorsAction.NAME).setParams(Type.STRING).setFactory(params -> new LoadSensorsAction((String) params[0]));
 
         WSSharedServer ws_server = new WSSharedServer(graph, Integer.valueOf(AppProps.getInstance().getProperty(AppProps.WS_PORT)));
@@ -75,6 +76,7 @@ public class Run {
                                                 appliance = new TPLink(ip);
                                                 break;
                                             case "mqtt":
+                                            case "tasmota":
                                                 appliance = new GenericMQTT(ip);
                                                 break;
                                             default:
@@ -85,7 +87,7 @@ public class Run {
                                             System.out.println("Start loop for " + name);
                                             while (true){
                                                 double sensorValue = appliance.getInstantValue();
-                                                if (sensorValue > Double.MIN_VALUE){
+                                                if (sensorValue > -Double.MAX_VALUE){
                                                     newTask()
                                                             .readIndex(sensors.META.name, name)
                                                             .travelInTime(String.valueOf(System.currentTimeMillis()))

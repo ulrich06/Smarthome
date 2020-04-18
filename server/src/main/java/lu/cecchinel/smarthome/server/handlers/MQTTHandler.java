@@ -16,22 +16,31 @@ public class MQTTHandler extends MessageHandler {
 
     @Override
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-        String message = new String(mqttMessage.getPayload());
-        String[] rawData = message.split(";");
-        String sensor = rawData[0];
-        double value = Double.parseDouble(rawData[1]);
-        long timestamp = System.currentTimeMillis();
+        if (s.split("/").length == 3){
+            String message = new String(mqttMessage.getPayload());
+            System.out.println(message);
 
-        if (rawData.length == 3) {
-            timestamp = Long.parseLong(rawData[2]) * 1000;
+        } else {
+            // assume its smartcampus format
+            String message = new String(mqttMessage.getPayload());
+            String[] rawData = message.split(";");
+            String sensor = rawData[0];
+            double value = Double.parseDouble(rawData[1]);
+            long timestamp = System.currentTimeMillis();
+
+            if (rawData.length == 3) {
+                timestamp = Long.parseLong(rawData[2]) * 1000;
+            }
+
+            sensors.find(super.getGraph(), 0, timestamp, sensor, result -> {
+                if (result.length == 1){
+                    result[0].setValue(value);
+                    super.getGraph().freeNodes(result);
+                }
+            });
         }
 
-        sensors.find(super.getGraph(), 0, timestamp, sensor, result -> {
-            if (result.length == 1){
-                result[0].setValue(value);
-                super.getGraph().freeNodes(result);
-            }
-        });
+
 
     }
 }

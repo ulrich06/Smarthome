@@ -6,7 +6,7 @@ public class GenericMQTT implements SmartPlug {
 
     @Override
     public double getInstantValue() {
-        return Double.MIN_VALUE; //Disabled for MQTT sensors as fed by the message handler
+        return -Double.MAX_VALUE; //Disabled for MQTT sensors as fed by the message handler
     }
 
     @Override

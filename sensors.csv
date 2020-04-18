@@ -8,3 +8,6 @@ hum-living,0.0.0.0,mqtt
 temp-living,0.0.0.0,mqtt
 tv,192.168.178.32,meross
 lamp,192.168.178.35,meross
+temp-cellar,0.0.0.0,mqtt
+pressure,0.0.0.0,mqtt
+esp-outside,0.0.0.0,tasmota

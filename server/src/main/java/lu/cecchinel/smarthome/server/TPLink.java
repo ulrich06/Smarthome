@@ -21,7 +21,7 @@ public class TPLink implements SmartPlug {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Double.MIN_VALUE;
+        return -Double.MAX_VALUE;
     }
 
     @Override
